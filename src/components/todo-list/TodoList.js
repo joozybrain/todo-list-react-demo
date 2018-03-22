@@ -54,7 +54,6 @@ class TodoList extends Component {
     stateArray.push({ description: this.state.value, isCompleted: false });
     this.setState({ todos: stateArray });
     this.setState({ value: "" });
-    console.log(this.state.todos);
   }
 
   handleClick(todoindex) {
@@ -64,7 +63,6 @@ class TodoList extends Component {
       : true;
 
     this.setState(stateArray);
-    console.log(stateArray[todoindex]);
   }
 }
 
