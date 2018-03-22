@@ -30,6 +30,7 @@ class TodoList extends Component {
           <label>
             Enter your to-do:
             <input
+              id="text"
               type="text"
               value={this.state.value}
               onChange={this.handleChange.bind(this)}
@@ -51,7 +52,7 @@ class TodoList extends Component {
     event.preventDefault();
     let stateArray = this.state.todos;
     stateArray.push({ description: this.state.value, isCompleted: false });
-    this.setState(stateArray);
+    this.setState({ todos: stateArray });
     this.setState({ value: "" });
     console.log(this.state.todos);
   }
