@@ -2,10 +2,11 @@ import React from "react";
 import { shallow } from "enzyme";
 import TodoList from "./TodoList";
 import { wrap } from "module";
+import TodoItem from "../todoitem/TodoItem";
 
 describe("TodoList:", () => {
   test("should be able to render all HTML tags", () => {
-    const wrapper = shallow(<TodoList />);
+    const wrapper = shallow(<TodoList title="todo title"/>);
     expect(wrapper.find("#todo-list")).toHaveLength(1);
     expect(wrapper.find("#todo-title")).toHaveLength(1);
     expect(wrapper.find("form")).toHaveLength(1);
@@ -14,7 +15,7 @@ describe("TodoList:", () => {
   });
 
   test("should be able to render all TodoItems in state", () => {
-    const wrapper = shallow(<TodoList />);
+    const wrapper = shallow(<TodoList title="todo title"/>);
     expect(wrapper.find("TodoItem")).toHaveLength(wrapper.state().todos.length);
   });
 
@@ -25,7 +26,7 @@ describe("TodoList:", () => {
   });
 
   test("handleSubmit should be able to execute setState", () => {
-    const wrapper = shallow(<TodoList />);
+    const wrapper = shallow(<TodoList title="todotile"/>);
     const event = {
       target: { value: "lunch" },
       preventDefault() {}
@@ -37,11 +38,33 @@ describe("TodoList:", () => {
     expect(wrapper.state().todos).toHaveLength(6);
     expect([...wrapper.state().todos].pop().description).toEqual("lunch");
   });
-//
+
   test("change event should update state.value", () => {
-    const wrapper = shallow(<TodoList />);
+    const wrapper = shallow(<TodoList title="todotitle"/>);
     const event = { target: { value: "a" } };
+    const blankValue = { target: { value: ""}}
+
     wrapper.find("#text").simulate("change", event);
     expect(wrapper.state().value).toEqual("a");
+    wrapper.find("#text").simulate("change", blankValue);
+    expect(wrapper.state().value).toEqual("a");
+  });
+
+  test("should be able to reverse true/false for handleClick", () => {
+    const wrapper = shallow(<TodoList title="todotitle"/>);
+    const index = 0;
+
+    wrapper
+      .find(TodoItem)
+      .at(index)
+      .props()
+      .handleClick(index);
+    expect(wrapper.state().todos[index].isCompleted).toBe(true);
+    wrapper
+      .find(TodoItem)
+      .at(index)
+      .props()
+      .handleClick(index);
+    expect(wrapper.state().todos[index].isCompleted).toBe(false);
   });
 });

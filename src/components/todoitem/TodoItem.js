@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "proptypes"
 
 import "./todoitem.css";
 
@@ -15,4 +16,9 @@ function TodoItem(props) {
   );
 }
 
+TodoItem.propTypes = {
+  handleClick : PropTypes.func.isRequired,
+  todo : PropTypes.object.isRequired
+
+}
 export default TodoItem;

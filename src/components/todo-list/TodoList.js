@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { todos } from "../../utils/seedData";
 import "./TodoList.css";
 import TodoItem from "../todoitem/TodoItem";
+import PropTypes from "proptypes";
 
 class TodoList extends Component {
   constructor() {
@@ -65,5 +66,9 @@ class TodoList extends Component {
     this.setState(stateArray);
   }
 }
+
+TodoList.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default TodoList;
